@@ -1,0 +1,24 @@
+.login.content {
+    margin: 10% auto;
+    width: 500px;
+    border: 1px solid;
+
+    text-align: center;
+}
+
+form.login {
+    margin: 35px auto;
+    width: 300px;
+    padding: 5px;
+}
+
+.field {
+    margin: 5px;
+
+    text-align: right;
+    font-size: 18px;
+}
+
+.alert.error {
+    background-color: #FFB7B7;
+}
