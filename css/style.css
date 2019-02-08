@@ -1,14 +1,40 @@
+body {
+    width: 800px;
+    margin: 0 auto;
+    padding: 0 5px;
+}
+
+header{
+    background-color: #CCC;
+    padding: 0 15px;
+}
+
+.logo {
+    display: inline-block;
+}
+
+nav.menu {
+    margin-top: 40px;
+    float: right;
+}
+
+nav.menu a {
+    margin-left:  5px;
+    
+    font-size: 18px;
+}
+
 .login.content {
-    margin: 10% auto;
     width: 500px;
+    margin: 10% auto;
     border: 1px solid;
 
     text-align: center;
 }
 
 form.login {
-    margin: 35px auto;
     width: 300px;
+    margin: 35px auto;
     padding: 5px;
 }
 
@@ -21,4 +47,25 @@ form.login {
 
 .alert.error {
     background-color: #FFB7B7;
+}
+
+.book.item {
+    width: 200px;
+    margin: 15px;
+    
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+}
+
+.book.item img {
+    width: 250px;
+    margin-left: -25px;
+    
+    display: block;
+}
+
+.book.content{
+    text-align: center
 }

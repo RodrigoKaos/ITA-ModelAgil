@@ -57,12 +57,17 @@ class App{
     }
 
     public function createView(){
-        $str_view = '_view/pages/home.php';        
-        $page_title = 'Home';
-
-        if( ! $this->isLogged() ){
-            $str_view = '_view/pages/login.php';
-            $page_title = 'Login';
+        $str_view = '_view/pages/login.php';
+        $page_title = 'Login';
+        
+        if( $this->isLogged() ){
+            $str_view = '_view/pages/home.php';        
+            $page_title = 'Home';
+            
+            if( isset( $_GET['book']) && $_GET['book'] != '' ){
+                $str_view = '_view/pages/book.php';        
+                $page_title = $this->getBook($_GET['book'])->B_TITLE;
+            }
         }
         
         include_once('_view/header.php');
@@ -70,8 +75,28 @@ class App{
         include_once('_view/footer.php');
     }
 
-    public function createHeader(){
+    public function getBookList(){
+        $bookQuery = 'SELECT B_ID, B_TITLE FROM BOOKS';
+        
+        return $this->dbConnection
+                            ->query( $bookQuery )
+                            ->fetchAll( PDO::FETCH_OBJ );
+    }
 
+    public function getBook($bookId){
+        try{
+            $bookQuery = 'SELECT B_ID, B_TITLE, B_GENRE, B_PAGES FROM BOOKS WHERE B_ID =:bookid';
+            $query = $this->dbConnection->prepare( $bookQuery );
+            $query->bindParam("bookid", $bookId, PDO::PARAM_STR);
+            $query->execute();
+
+            if( $query->rowCount() > 0 )
+                return $query->fetch(PDO::FETCH_OBJ);
+        
+            }catch( PDOException $e ){
+            print "Error: " . $e->getMessage() . "<br/>";
+        }
+        return false;
     }
 
     

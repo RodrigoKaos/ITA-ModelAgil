@@ -12,7 +12,19 @@
 </head>
 <body>
     <?php if( isset($_SESSION['UID']) ){ ?>
-        <header>    
-            Logged Header <a href="logout.php" class="logout">Logout</a>
+        <header>
+            
+            <div class="logo">
+                <h1>
+                    <a href="/ja-li">Esse eu já li!</a>
+                </h1>
+            </div>
+
+            <nav class="menu">
+                <a href="">Ranking</a>
+                <a href="">Perfil</a>
+                <a href="logout.php" class="logout">Logout</a>
+            </nav>
+
         </header>
     <?php } ?>
