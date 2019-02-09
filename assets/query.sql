@@ -14,8 +14,17 @@ INSERT INTO
     USERS(U_LOGIN, U_PASSWORD, U_NAME ) 
 VALUES 
     ("admin", "admin", "Administrator"), 
-    ("user1", "123456", "User One"), 
-    ("user2", "123456", "User Two");
+    ("user1", "123456", "User One"),
+    ("user2", "123456", "User 2"), 
+    ("user3", "123456", "User 3"), 
+    ("user4", "123456", "User 4"), 
+    ("user5", "123456", "User 5"), 
+    ("user6", "123456", "User 6"), 
+    ("user7", "123456", "User 7"), 
+    ("user8", "123456", "User 8"), 
+    ("user9", "123456", "User 9"), 
+    ("user10", "123456", "User Ten");
+    
 
 CREATE TABLE BOOKS(
     B_ID            INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,7 +48,12 @@ VALUES
     ("Book Nine", "Fiction", 250),
     ("Book Ten", "Fiction", 50),
     ("Book Eleven", "Romance", 450),
-    ("Book Twelve", "Fiction", 250);
+    ("Book Twelve", "Fiction", 250),    
+    ("Book 13", "Horror Fiction", 50),
+    ("Book 14", "Horror Fiction", 150),
+    ("Book 15", "Horror Fiction", 250),
+    ("Book 16", "Horror Fiction", 50),
+    ("Book 17", "Horror Fiction", 450);
 
 CREATE TABLE USER_BOOKS(
     UB_ID           INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,9 +66,12 @@ CREATE TABLE USER_BOOKS(
 );
 
 INSERT INTO
-    USER_BOOKS(UB_USER_ID, UB_BOOK_ID)
+    USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
 VALUES
-    (1, 1), (1, 2);
+    (2, 1, 1),
+    (3, 2, 1),(3, 1, 1),
+    (4, 1, 1), (4, 2, 1), (4, 3, 1),
+    (5, 1, 1), (4, 2, 1), (4, 3, 1), (5, 1, 1), (4, 2, 1), (4, 3, 1),
 
 --Book list
 SELECT 

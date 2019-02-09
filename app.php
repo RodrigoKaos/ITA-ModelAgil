@@ -131,8 +131,8 @@ class App{
     }
 
     public function markBook( $userId, $bookId ){
-        $markQuery = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID)
-                                    VALUES(?, ?)';
+        $markQuery = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
+                                    VALUES(?, ?, 1)';
         $this->dbConnection->prepare($markQuery)
                             ->execute([ $userId, $bookId ]);
         
