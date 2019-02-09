@@ -68,6 +68,16 @@ class App{
                 $str_view = '_view/pages/book.php';        
                 $page_title = $this->getBook($_GET['book'])->B_TITLE;
             }
+
+            if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
+                $str_view = '_view/pages/ranking.php';        
+                $page_title = 'Ranking';
+            }
+
+            if( isset( $_GET['profile']) && $_GET['profile'] != '' ){
+                $str_view = '_view/pages/profile.php';        
+                $page_title = 'Profile';
+            }
         }
         
         include_once('_view/header.php');
@@ -93,11 +103,96 @@ class App{
             if( $query->rowCount() > 0 )
                 return $query->fetch(PDO::FETCH_OBJ);
         
-            }catch( PDOException $e ){
+        }catch( PDOException $e ){
             print "Error: " . $e->getMessage() . "<br/>";
         }
         return false;
     }
 
+    public function checkBookStatus( $bookId, $userId){
+        try{
+            $statusQuery = 'SELECT UB_STATUS FROM USER_BOOKS 
+                            WHERE 
+                                UB_USER_ID=:userid AND
+                                UB_BOOK_ID=:bookid';
+            $query = $this->dbConnection->prepare($statusQuery);
+            $query->bindParam("userid",$userId, PDO::PARAM_STR);
+            $query->bindParam("bookid",$bookId, PDO::PARAM_STR);
+            $query->execute();
+
+            if( $query->rowCount() > 0 )
+                return $query->fetch(PDO::FETCH_OBJ)->UB_STATUS;
+        
+        }catch( PDOException $e ){
+            print "Error: " . $e->getMessage() . "<br>";
+        }
+        
+        return false;
+    }
+
+    public function markBook( $userId, $bookId ){
+        $markQuery = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID)
+                                    VALUES(?, ?)';
+        $this->dbConnection->prepare($markQuery)
+                            ->execute([ $userId, $bookId ]);
+        
+        $points = $this->calculatePoints($this->getBook($bookId));
+        $this->savePoints($userId, $points);
+    }
+
+    private function calculatePoints( $book ){
+        if( $book->B_PAGES > 99 )
+            return  1 + intdiv( $book->B_PAGES, 100 );
+        
+        return 1;
+    }
+
+    private function savePoints($userId, $points){
+        $pointsQuery = 'UPDATE USERS 
+                            SET U_POINTS = U_POINTS + ? 
+                            WHERE U_ID = ?';
+        
+        $this->dbConnection->prepare($pointsQuery)
+                            ->execute([$points, $userId]);
+    }
+
+    public function getTrophies($userId){
+        $trophiesQuery = 'SELECT 
+                        Count(u.UB_BOOK_ID) AS B_QUANTITY, b.B_GENRE    
+                        FROM USER_BOOKS u     
+                        LEFT JOIN BOOKS b ON b.B_ID = u.UB_BOOK_ID     
+                        WHERE u.UB_USER_ID = ? AND u.UB_STATUS = 1
+                        GROUP BY b.B_GENRE ORDER BY B_QUANTITY DESC';
+        $query = $this->dbConnection->prepare($trophiesQuery);
+        $query->execute([$userId]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getBookListFromUser($userId){
+        $listQuery = 'SELECT 
+                        u.UB_BOOK_ID, b.B_TITLE, b.B_GENRE, u.UB_STATUS    
+                        FROM USER_BOOKS u     
+                        LEFT JOIN BOOKS b ON b.B_ID = u.UB_BOOK_ID  
+                        WHERE u.UB_USER_ID = ? AND u.UB_STATUS = 1';
+        $query = $this->dbConnection->prepare($listQuery);
+        $query->execute([$userId]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+
+    }
     
+    public function getRankingList(){
+        $rankingQuery = 'SELECT U_ID, U_NAME, U_POINTS FROM USERS 
+                            ORDER BY U_POINTS DESC
+                            LIMIT 10';
+        return $this->dbConnection->query($rankingQuery)
+                            ->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getProfile($userId){
+        $userQuery = 'SELECT U_NAME, U_POINTS FROM USERS 
+                        WHERE U_ID = ?';
+        $query = $this->dbConnection->prepare($userQuery);
+        $query->execute([$userId]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
 }

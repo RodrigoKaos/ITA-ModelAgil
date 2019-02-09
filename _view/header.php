@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     
 </head>
-<body>
+<body class="center">
     <?php if( isset($_SESSION['UID']) ){ ?>
         <header>
             
@@ -21,8 +21,8 @@
             </div>
 
             <nav class="menu">
-                <a href="">Ranking</a>
-                <a href="">Perfil</a>
+                <a href="?ranking=<?php echo $_SESSION['UID']; ?>">Ranking</a>
+                <a href="?profile=<?php echo $_SESSION['UID']; ?>">Profile</a>
                 <a href="logout.php" class="logout">Logout</a>
             </nav>
 

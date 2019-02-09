@@ -1,7 +1,22 @@
 <?php
 
 $app = new App();
+
+if(! empty( $_POST ) ){
+    if( isset( $_POST['book']) && isset($_POST['status']) ){
+        $app->markBook( $_SESSION['UID'], $_POST['book'] );
+    }
+}
+
 $book = $app->getBook($_GET['book']);
+$book_status = $app->checkBookStatus( $_GET['book'], $_SESSION['UID'] );
+
+if( empty($book_status) )
+    $book_status = 0;
+
+$str_status = '';
+if( $book_status )
+    $str_status = "disabled";
 
 ?>
 
@@ -12,11 +27,11 @@ $book = $app->getBook($_GET['book']);
         <?php echo $book->B_GENRE . "<br>"; ?>
         <?php echo $book->B_PAGES . " pages"; ?>
         
-        <form method="post">
-            <input type="hidden" name="status" value="0">
-            <button type="submit">Já li!</button>
+        <form method="post">            
+            <input type="hidden" name="book" value="<?php echo $book->B_ID;?>">
+            <input type="hidden" name="status" value="<?php echo $book_status;?>">
+            <button type="submit"<?php echo $str_status; ?> >Já li!</button>        
         </form>
-
     </div>
 
 </div>

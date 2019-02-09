@@ -2,17 +2,17 @@
     <h1 class="title">Esse eu já li!</h1>
     
     <form class="login" method="post">
-        <div class="login field">
+        <div class="form-field">
             <label for="login">Login:</label>
             <input type="text" name="login" id="login" pattern="^\w+$" required>
         </div>
         
-        <div class="password field">
+        <div class="form-field">
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
         </div>
 
-        <div class="button field">
+        <div class="form-field">
             <button type="submit">Login</button>
         </div>
     </form>

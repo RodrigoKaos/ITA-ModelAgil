@@ -1,7 +1,5 @@
 <?php if( isset($_SESSION['UID']) ){ ?>
-        <footer>
-            Testing footer
-        </footer>
+        <footer></footer>
 <?php } ?>
 
 </body>
