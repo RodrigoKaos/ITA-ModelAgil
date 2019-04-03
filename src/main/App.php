@@ -1,12 +1,16 @@
 <?php
 
+namespace Main;
+
+use PDO;
+
 class App{
     
     private $dbConnection;
 
     public function __construct(){
-        include('config.php');
-        $this->dbConnection = new PDO( $dsn, $user, $pass, $opt );
+        // include('config.php');
+        $this->dbConnection = new PDO( DB_DSN, DB_USER, DB_PASS, DB_OPT );
     }
 
     private function loginHelper($username, $password){

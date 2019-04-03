@@ -1,5 +1,7 @@
 <?php
 
+use Main\App;
+
 $app = new App();
 
 if(! empty( $_POST ) ){

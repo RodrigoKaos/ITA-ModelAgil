@@ -1,5 +1,7 @@
 <?php
 
+use Main\App;
+
 $app = new App();
 
 ?>
