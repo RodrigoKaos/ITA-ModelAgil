@@ -1,0 +1,99 @@
+/* 
+
+    Shadow Blue - #7A82AB
+    Platinum - #E8E9EB
+    Gainsboro - #E0DFD5
+    Onyx - #313638
+
+    States = Default | Hover | Active | Disabled | Focusedx
+
+*/
+
+body {
+    width: 800px;
+    padding: 0 5px;
+}
+
+header{
+    background-color: #CCC;
+    padding: 0 15px;
+}
+
+.logo {
+    display: inline-block;
+}
+
+nav.menu {
+    margin-top: 40px;
+    float: right;
+}
+
+nav.menu a {
+    margin-left:  5px;
+    
+    font-size: 18px;
+}
+
+.content {
+    text-align: center;
+}
+
+.login.content {
+    width: 500px;
+    margin: 10% auto;
+    border: 1px solid;
+}
+
+form.login {
+    width: 300px;
+    margin: 35px auto;
+    padding: 5px;
+}
+
+.form-field {
+    margin: 5px;
+
+    text-align: right;
+    font-size: 18px;
+}
+
+.alert.error {
+    background-color: #FFB7B7;
+}
+
+.book.list{
+    width: 700px;
+}
+.book.item {
+    width: 200px;
+    margin: 15px;
+    
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+}
+
+.book.item img {
+    width: 250px;
+    margin-left: -25px;
+    
+    display: block;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.profile table {
+    text-align: left;
+}
+
+.profile table td {
+    padding: 5px;
+}
+
+.trophies {
+    border-bottom: 1px solid;
+    margin-bottom: 15px;
+}
