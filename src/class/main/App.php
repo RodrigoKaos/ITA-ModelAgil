@@ -3,6 +3,7 @@
 namespace Main;
 
 use PDO;
+use Connection\Database;
 
 class App{
     
@@ -10,7 +11,7 @@ class App{
 
     public function __construct(){
         // include('config.php');
-        $this->dbConnection = new PDO( DB_DSN, DB_USER, DB_PASS, DB_OPT );
+        $this->dbConnection = Database::getConnection();
     }
 
     private function loginHelper($username, $password){
