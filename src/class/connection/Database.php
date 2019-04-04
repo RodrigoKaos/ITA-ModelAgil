@@ -23,24 +23,43 @@ class Database
     return self::$databaseConnection;
   }
 
-  public static function select($params, $query){
+  public static function select($params, $query, $multiple = false){
     $connection = self::getConnection();
     try {
       $statement = $connection->prepare($query);
-      foreach ($params as $key => $value) {
-        $statement->bindParam(
-                      $key + 1, 
-                      $params[$key], 
-                      PDO::PARAM_STR);
-      }    
-      $statement->execute();
       
-      if( $statement->rowCount() > 0 )
-        return $statement->fetch( PDO::FETCH_OBJ );
+      if($multiple){
+        $statement->execute([$params]);
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+      
+      } else {
+        foreach ($params as $key => $value) {
+          $statement->bindParam(
+                        $key + 1, 
+                        $params[$key], 
+                        PDO::PARAM_STR);
+        }    
+        $statement->execute();
+        
+        if( $statement->rowCount() > 0 )
+          return $statement->fetch( PDO::FETCH_OBJ );
+      }
 
     } catch (PDOException $e) {
       print "Error: " . $e->getMessage() . "<br/>";
     }
     return false;
-  }  
+  }
+
+  public static function selectAll($query) {
+    $connection = self::getConnection();
+    try {
+      return $connection->query($query)
+                        ->fetchAll(PDO::FETCH_OBJ);
+    
+    } catch (PDOException $e) {
+      print "Error: " . $e->getMessage() . "<br/>";
+    }
+  }
 }
+

@@ -6,23 +6,23 @@ use PDO;
 use DAO\Login;
 use Connection\Database;
 
-class App{
+class App {
     
   private $dbConnection;
 
-  public function __construct(){
+  public function __construct() {
     $this->dbConnection = Database::getConnection();
   }
 
-  public function login(){
+  public function login() {
     if( !empty($_POST) ){
       if( isset($_POST['login'])  && isset($_POST['password']) ) {
         $result = Login::verify($_POST['login'], $_POST['password']);
 
-        if( !$result ){
+        if( !$result ) {
           $err_msg = 'Invalid username or password...';
           $_SESSION['LOGERROR'] = $err_msg;
-        }else{
+        } else {
           $_SESSION['UID'] = $result->U_ID;
           $_SESSION['UNAME'] = $result->U_NAME;
         }        
@@ -30,38 +30,38 @@ class App{
     }
   }
 
-  private function isLogged(){
-      return isset($_SESSION['UID']);
+  private function isLogged() {
+    return isset($_SESSION['UID']);
   }
 
-    public function createView(){
-        $str_view = '_view/pages/login.php';
-        $page_title = 'Login';
-        
-        if( $this->isLogged() ){
-            $str_view = '_view/pages/home.php';        
-            $page_title = 'Home';
-            
-            if( isset( $_GET['book']) && $_GET['book'] != '' ){
-                $str_view = '_view/pages/book.php';        
-                $page_title = $this->getBook($_GET['book'])->B_TITLE;
-            }
+  public function createView(){
+    $str_view = '_view/pages/login.php';
+    $page_title = 'Login';
+    
+    if( $this->isLogged() ){
+      $str_view = '_view/pages/home.php';        
+      $page_title = 'Home';
+      
+      if( isset( $_GET['book']) && $_GET['book'] != '' ){
+        $str_view = '_view/pages/book.php';        
+        $page_title = $this->getBook($_GET['book'])->B_TITLE;
+      }
 
-            if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
-                $str_view = '_view/pages/ranking.php';        
-                $page_title = 'Ranking';
-            }
+      if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
+        $str_view = '_view/pages/ranking.php';        
+        $page_title = 'Ranking';
+      }
 
-            if( isset( $_GET['profile']) && $_GET['profile'] != '' ){
-                $str_view = '_view/pages/profile.php';        
-                $page_title = 'Profile';
-            }
-        }
-        
-        include_once('_view/header.php');
-        include_once( $str_view );
-        include_once('_view/footer.php');
+      if( isset( $_GET['profile']) && $_GET['profile'] != '' ){
+        $str_view = '_view/pages/profile.php';        
+        $page_title = 'Profile';
+      }
     }
+    
+    include_once('_view/header.php');
+    include_once( $str_view );
+    include_once('_view/footer.php');
+  }
 
     public function getBookList(){
         $bookQuery = 'SELECT B_ID, B_TITLE FROM BOOKS';
