@@ -3,6 +3,7 @@
 namespace Main;
 
 use PDO;
+use DAO\Book;
 use DAO\Login;
 use Connection\Database;
 
@@ -44,7 +45,7 @@ class App {
       
       if( isset( $_GET['book']) && $_GET['book'] != '' ){
         $str_view = '_view/pages/book.php';        
-        $page_title = $this->getBook($_GET['book'])->B_TITLE;
+        $page_title = Book::getBook($_GET['book'])->B_TITLE;
       }
 
       if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
@@ -63,58 +64,13 @@ class App {
     include_once('_view/footer.php');
   }
 
-    public function getBookList(){
-        $bookQuery = 'SELECT B_ID, B_TITLE FROM BOOKS';
-        
-        return $this->dbConnection
-                            ->query( $bookQuery )
-                            ->fetchAll( PDO::FETCH_OBJ );
-    }
-
-    public function getBook($bookId){
-        try{
-            $bookQuery = 'SELECT B_ID, B_TITLE, B_GENRE, B_PAGES FROM BOOKS WHERE B_ID =:bookid';
-            $query = $this->dbConnection->prepare( $bookQuery );
-            $query->bindParam("bookid", $bookId, PDO::PARAM_STR);
-            $query->execute();
-
-            if( $query->rowCount() > 0 )
-                return $query->fetch(PDO::FETCH_OBJ);
-        
-        }catch( PDOException $e ){
-            print "Error: " . $e->getMessage() . "<br/>";
-        }
-        return false;
-    }
-
-    public function checkBookStatus( $bookId, $userId){
-        try{
-            $statusQuery = 'SELECT UB_STATUS FROM USER_BOOKS 
-                            WHERE 
-                                UB_USER_ID=:userid AND
-                                UB_BOOK_ID=:bookid';
-            $query = $this->dbConnection->prepare($statusQuery);
-            $query->bindParam("userid",$userId, PDO::PARAM_STR);
-            $query->bindParam("bookid",$bookId, PDO::PARAM_STR);
-            $query->execute();
-
-            if( $query->rowCount() > 0 )
-                return $query->fetch(PDO::FETCH_OBJ)->UB_STATUS;
-        
-        }catch( PDOException $e ){
-            print "Error: " . $e->getMessage() . "<br>";
-        }
-        
-        return false;
-    }
-
     public function markBook( $userId, $bookId ){
         $markQuery = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
                                     VALUES(?, ?, 1)';
         $this->dbConnection->prepare($markQuery)
                             ->execute([ $userId, $bookId ]);
         
-        $points = $this->calculatePoints($this->getBook($bookId));
+        $points = $this->calculatePoints(Book::getBook($bookId));
         $this->savePoints($userId, $points);
     }
 

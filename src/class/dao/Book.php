@@ -28,7 +28,7 @@ class Book {
   public static function checkStatus($bookId, $userId) {
     $query = 'SELECT UB_STATUS FROM USER_BOOKS WHERE UB_USER_ID=:userid 
               AND UB_BOOK_ID=:bookid';
-    return Database::select($query)->UB_STATUS;
+    return Database::select([$userId, $bookId], $query)->UB_STATUS;
   }
 
 }
