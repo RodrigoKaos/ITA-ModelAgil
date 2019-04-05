@@ -2,7 +2,7 @@
 
 // Database info
 $host = 'mysql';
-$db   = 'JALI';
+$db   = 'ita_jali';
 $user = 'root';
 $pass = '123.456';
 $charset = 'utf8mb4';
