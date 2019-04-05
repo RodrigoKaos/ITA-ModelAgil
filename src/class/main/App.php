@@ -69,22 +69,13 @@ class App {
     $marked = Book::setStatus($bookId, $userId, $status);
     if($marked){
       $points = $this->calculatePointsByPages(Book::getBook($bookId)->B_PAGES);
-      $saved = $this->savePoints($userId, $points);
+      $saved = Book::savePoints($userId, $points);
     }
   }
 
   private function calculatePointsByPages($pages){
     return $pages > 99 ? 1 + intdiv($pages, 100) : 1; 
   }
-
-    private function savePoints($userId, $points){
-        $pointsQuery = 'UPDATE USERS 
-                            SET U_POINTS = U_POINTS + ? 
-                            WHERE U_ID = ?';
-        
-        $this->dbConnection->prepare($pointsQuery)
-                            ->execute([$points, $userId]);
-    }
 
     public function getTrophies($userId){
         $trophiesQuery = 'SELECT 

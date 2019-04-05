@@ -5,7 +5,7 @@ use Main\App;
 $app = new App();
 $userId = $_GET['profile'];
 $user = $app->getProfile( $userId );
-$bookList = $app->getBookListFromUser($userId);
+$bookList = Book::getBookListFromUser($userId);
 $booksByGenre = $app->getTrophies($userId);
 
 ?>
