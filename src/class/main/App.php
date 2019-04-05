@@ -64,7 +64,7 @@ class App {
     //TODO: Add rollback...
     $marked = Book::setStatus($bookId, $userId);
     if($marked){
-      $points = $this->calculatePointsByPages(Book::getBook($bookId)->pages);
+      $points = $this->calculatePointsByPages(Book::getBook($bookId)->total_pages);
       $saved = Book::savePoints($userId, $points);
     }
   }

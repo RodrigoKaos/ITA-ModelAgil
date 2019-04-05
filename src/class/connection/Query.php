@@ -6,7 +6,7 @@ class Query
 {
   private static $queries  = array(
     //Book queries
-    'getBook' => 'SELECT id, title, genre, pages FROM books WHERE id =:bookid',
+    'getBook' => 'SELECT id, title, genre, total_pages FROM books WHERE id =:bookid',
     'getBooklist' => 'SELECT id, title FROM books',
     'getBooklistFromUser' => 'SELECT u.book_id, b.title, b.genre, u.status FROM user_books u LEFT JOIN books b ON b.id = u.book_id WHERE u.user_id = ? AND u.status = 1',
     'checkStatus' => 'SELECT status FROM user_books WHERE user_id=:userid AND book_id=:bookid',
