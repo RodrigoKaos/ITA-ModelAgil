@@ -13,8 +13,8 @@ use DAO\Book;
       <div class="book item">
         <img src="assets/img/default_book.jpg" alt="Default book image">
         <h3>
-          <a href="?book=<?php echo $book->B_ID; ?>">
-              <?php echo $book->B_TITLE; ?>
+          <a href="?book=<?php echo $book->id; ?>">
+              <?php echo $book->title; ?>
           </a>
         </h3>
       </div>

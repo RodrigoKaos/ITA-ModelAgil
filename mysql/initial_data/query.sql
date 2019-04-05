@@ -30,12 +30,12 @@ CREATE TABLE books(
     id            INT AUTO_INCREMENT PRIMARY KEY,
     title         VARCHAR(255) NOT NULL,
     genre         VARCHAR(255) NOT NULL,
-    pages         INT NOT NULL,
+    total_pages         INT NOT NULL,
     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO
-    books(title, genre, pages)
+    books(title, genre, total_pages)
 VALUES
     ("Book One", "Fiction", 50),
     ("Book Two", "Romance", 150),

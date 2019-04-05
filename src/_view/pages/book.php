@@ -26,12 +26,12 @@ if( $book_status )
 <div class="book content">
   <div class="book info">
       
-    <h1><?php echo $book->B_TITLE; ?></h1>
-    <?php echo $book->B_GENRE . "<br>"; ?>
-    <?php echo $book->B_PAGES . " pages"; ?>
+    <h1><?php echo $book->title; ?></h1>
+    <?php echo $book->genre . "<br>"; ?>
+    <?php echo $book->total_pages . " pages"; ?>
     
     <form method="post">            
-      <input type="hidden" name="book" value="<?php echo $book->B_ID;?>">
+      <input type="hidden" name="book" value="<?php echo $book->id;?>">
       <input type="hidden" name="status" value="<?php echo $book_status;?>">
       <button type="submit"<?php echo $str_status; ?> >Já li!</button>        
     </form>

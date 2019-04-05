@@ -20,7 +20,7 @@ class Book {
   }
 
   public static function checkStatus($bookId, $userId) {
-    return Database::select([$userId, $bookId], Query::get(__FUNCTION__), true)->UB_STATUS;
+    return Database::select([$userId, $bookId], Query::get(__FUNCTION__), true)->status;
   }
 
   public static function setStatus($bookId, $userId) {

@@ -14,14 +14,14 @@ class App {
   public function login() {
     if( !empty($_POST) ){
       if( isset($_POST['login'])  && isset($_POST['password']) ) {
-        $result = Login::verify($_POST['login'], $_POST['password']);
+        $user = Login::verify($_POST['login'], $_POST['password']);
 
-        if( !$result ) {
+        if( !$user ) {
           $err_msg = 'Invalid username or password...';
           $_SESSION['LOGERROR'] = $err_msg;
         } else {
-          $_SESSION['UID'] = $result->U_ID;
-          $_SESSION['UNAME'] = $result->U_NAME;
+          $_SESSION['UID'] = $user->id;
+          $_SESSION['UNAME'] = $user->name;
         }        
       }
     }
@@ -41,7 +41,7 @@ class App {
       
       if( isset( $_GET['book']) && $_GET['book'] != '' ){
         $str_view = '_view/pages/book.php';        
-        $page_title = Book::getBook($_GET['book'])->B_TITLE;
+        $page_title = Book::getBook($_GET['book'])->title;
       }
 
       if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
@@ -64,7 +64,7 @@ class App {
     //TODO: Add rollback...
     $marked = Book::setStatus($bookId, $userId);
     if($marked){
-      $points = $this->calculatePointsByPages(Book::getBook($bookId)->B_PAGES);
+      $points = $this->calculatePointsByPages(Book::getBook($bookId)->pages);
       $saved = Book::savePoints($userId, $points);
     }
   }

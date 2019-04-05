@@ -18,8 +18,8 @@ use DAO\User;
     foreach( User::getRankingList() as $user ){ ?>
       <tr>
         <td><?php echo $position; $position++; ?></td>
-        <td><?php echo $user->U_NAME; ?></td>
-        <td><?php echo $user->U_POINTS;?></td>
+        <td><?php echo $user->name; ?></td>
+        <td><?php echo $user->points;?></td>
       </tr>
     <?php } ?>
   </table>
