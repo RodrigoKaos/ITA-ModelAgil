@@ -35,7 +35,7 @@ class App {
     return isset($_SESSION['UID']);
   }
 
-  public function createView(){
+  public function createView() {
     $str_view = '_view/pages/login.php';
     $page_title = 'Login';
     
@@ -64,15 +64,14 @@ class App {
     include_once('_view/footer.php');
   }
 
-    public function markBook( $userId, $bookId ){
-        $markQuery = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
-                                    VALUES(?, ?, 1)';
-        $this->dbConnection->prepare($markQuery)
-                            ->execute([ $userId, $bookId ]);
-        
-        $points = $this->calculatePoints(Book::getBook($bookId));
-        $this->savePoints($userId, $points);
+  public function markBook($bookId, $userId, $status = 1) {
+    //TODO: Add rollback...
+    $marked = Book::setStatus($bookId, $userId, $status);
+    if($marked){
+      $points = $this->calculatePoints(Book::getBook($bookId));
+      $saved = $this->savePoints($userId, $points);
     }
+  }
 
     private function calculatePoints( $book ){
         if( $book->B_PAGES > 99 )

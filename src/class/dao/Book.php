@@ -31,4 +31,10 @@ class Book {
     return Database::select([$userId, $bookId], $query, true)->UB_STATUS;
   }
 
+  public static function setStatus($bookId, $userId, $status) {
+    $query = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
+              VALUES(?, ?, ?)';
+    return Database::insert([$userId, $bookId, $status], $query);
+  }
+
 }

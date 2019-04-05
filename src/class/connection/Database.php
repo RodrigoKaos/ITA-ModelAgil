@@ -13,7 +13,7 @@ class Database
 
   private function __contruct(){}
 
-  public static function getConnection(){
+  public static function getConnection() {
     try {
       if(!isset(self::$databaseConnection))
       self::$databaseConnection = new PDO( DB_DSN, DB_USER, DB_PASS, DB_OPT );
@@ -23,10 +23,10 @@ class Database
     return self::$databaseConnection;
   }
 
-  public static function select($params, $query, $bind = false) {
+  public static function select(array $params, $query, bool $bind = false) {
     $connection = self::getConnection();
     try {
-      $statement = self::prepare($params, $query);
+      $statement = self::prepare($query);
       
       if($bind){
         self::binding($params, $statement);
@@ -58,15 +58,20 @@ class Database
     }
   }
 
-  private function prepare($params, $query) {
+  private function prepare($query) {
     return self::$databaseConnection->prepare($query);
   }
   
-  private function binding($params, $statement) {
+  private function binding(array $params, $statement) {
     //TODO: Identify the type of the parameter
     foreach ($params as $key => $value) {
       $statement->bindParam($key+1, $params[$key], PDO::PARAM_STR);
     }   
+  }
+
+  public static function insert(array $params, $query) {
+    $statement = self::prepare($query);
+    return $statement->execute($params);
   }
 }
 
