@@ -7,7 +7,7 @@ $app = new App();
 
 if(! empty( $_POST ) ){
   if( isset( $_POST['book']) && isset($_POST['status']) ){
-    $app->markBook( $_SESSION['UID'], $_POST['book'] );
+    $app->markBook($_POST['book'], $_SESSION['UID']);
   }
 }
 

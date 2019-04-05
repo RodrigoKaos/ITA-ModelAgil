@@ -1,12 +1,14 @@
 <?php
 
+use DAO\Book;
+use DAO\User;
 use Main\App;
 
-$app = new App();
+// $app = new App();
 $userId = $_GET['profile'];
-$user = $app->getProfile( $userId );
+$user = User::getProfile( $userId );
 $bookList = Book::getBookListFromUser($userId);
-$booksByGenre = $app->getTrophies($userId);
+$booksByGenre = User::getTrophies($userId);
 
 ?>
 

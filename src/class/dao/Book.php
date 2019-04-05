@@ -22,7 +22,7 @@ class Book {
               FROM USER_BOOKS u LEFT JOIN BOOKS b ON b.B_ID = u.UB_BOOK_ID  
               WHERE u.UB_USER_ID = ? AND u.UB_STATUS = 1';
     
-    return Database::select([$id], $query, true);
+    return Database::select([$id], $query);
   }
 
   public static function checkStatus($bookId, $userId) {
@@ -31,10 +31,10 @@ class Book {
     return Database::select([$userId, $bookId], $query, true)->UB_STATUS;
   }
 
-  public static function setStatus($bookId, $userId, $status) {
+  public static function setStatus($bookId, $userId) {
     $query = 'INSERT INTO USER_BOOKS(UB_USER_ID, UB_BOOK_ID, UB_STATUS)
-              VALUES(?, ?, ?)';
-    return Database::insert([$userId, $bookId, $status], $query);
+              VALUES(?, ?, 1)';//TODO: Refactor to change status
+    return Database::insert([$userId, $bookId], $query);
   }
 
   public static function savePoints($userId, $points) {
