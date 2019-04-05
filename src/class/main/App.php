@@ -118,8 +118,7 @@ class App {
         $rankingQuery = 'SELECT U_ID, U_NAME, U_POINTS FROM USERS 
                             ORDER BY U_POINTS DESC
                             LIMIT 10';
-        return $this->dbConnection->query($rankingQuery)
-                            ->fetchAll(PDO::FETCH_OBJ);
+        return Database::queryAll($rankingQuery);
     }
 
     public function getProfile($userId){

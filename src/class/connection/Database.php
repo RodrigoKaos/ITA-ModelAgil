@@ -18,48 +18,55 @@ class Database
       if(!isset(self::$databaseConnection))
       self::$databaseConnection = new PDO( DB_DSN, DB_USER, DB_PASS, DB_OPT );
     } catch (PDOException $e) {
-      print "Error: " . $e->getMessage() . "<br/>";
+      print "getConnection - Error: " . $e->getMessage() . "<br/>";
     }
     return self::$databaseConnection;
   }
 
-  public static function select($params, $query, $multiple = false){
+  public static function select($params, $query, $bind = false) {
     $connection = self::getConnection();
     try {
-      $statement = $connection->prepare($query);
+      $statement = self::prepare($params, $query);
       
-      if($multiple){
-        $statement->execute([$params]);
-        return $statement->fetchAll(PDO::FETCH_OBJ);
-      
-      } else {
-        foreach ($params as $key => $value) {
-          $statement->bindParam(
-                        $key + 1, 
-                        $params[$key], 
-                        PDO::PARAM_STR);
-        }    
+      if($bind){
+        self::binding($params, $statement);
         $statement->execute();
-        
-        if( $statement->rowCount() > 0 )
-          return $statement->fetch( PDO::FETCH_OBJ );
+      } else {
+        $statement->execute($params);
+        return $statement->fetchAll( PDO::FETCH_OBJ );
       }
 
+      if( $statement->rowCount() > 0 )
+        return $statement->fetch( PDO::FETCH_OBJ );      
+      
+      return false;
+      
     } catch (PDOException $e) {
-      print "Error: " . $e->getMessage() . "<br/>";
+      print "Select - Error: " . $e->getMessage() . "<br/>";
     }
     return false;
   }
 
-  public static function selectAll($query) {
+  public static function queryAll($query) {
     $connection = self::getConnection();
     try {
       return $connection->query($query)
                         ->fetchAll(PDO::FETCH_OBJ);
     
     } catch (PDOException $e) {
-      print "Error: " . $e->getMessage() . "<br/>";
+      print "SelectAll - Error: " . $e->getMessage() . "<br/>";
     }
+  }
+
+  private function prepare($params, $query) {
+    return self::$databaseConnection->prepare($query);
+  }
+  
+  private function binding($params, $statement) {
+    //TODO: Identify the type of the parameter
+    foreach ($params as $key => $value) {
+      $statement->bindParam($key+1, $params[$key], PDO::PARAM_STR);
+    }   
   }
 }
 

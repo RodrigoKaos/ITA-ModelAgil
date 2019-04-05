@@ -9,12 +9,12 @@ class Book {
   public static function getBook($id) {
     $query = 'SELECT B_ID, B_TITLE, B_GENRE, B_PAGES 
               FROM BOOKS WHERE B_ID =:bookid';
-    return Database::select([$id], $query);
+    return Database::select([$id], $query, true);
   }
 
   public static function getBooklist() {
     $query = 'SELECT B_ID, B_TITLE FROM BOOKS';
-    return Database::selectAll($query);
+    return Database::queryAll($query);
   }
 
   public static function getBooklistFromUser($id) {
@@ -28,7 +28,7 @@ class Book {
   public static function checkStatus($bookId, $userId) {
     $query = 'SELECT UB_STATUS FROM USER_BOOKS WHERE UB_USER_ID=:userid 
               AND UB_BOOK_ID=:bookid';
-    return Database::select([$userId, $bookId], $query)->UB_STATUS;
+    return Database::select([$userId, $bookId], $query, true)->UB_STATUS;
   }
 
 }
