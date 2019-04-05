@@ -37,4 +37,9 @@ class Book {
     return Database::insert([$userId, $bookId, $status], $query);
   }
 
+  public static function savePoints($userId, $points) {
+    $query = 'UPDATE USERS SET U_POINTS = U_POINTS + ? WHERE U_ID = ?';
+    return Database::update([$points, $userId], $query);
+  }
+
 }

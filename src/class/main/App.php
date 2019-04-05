@@ -68,17 +68,14 @@ class App {
     //TODO: Add rollback...
     $marked = Book::setStatus($bookId, $userId, $status);
     if($marked){
-      $points = $this->calculatePoints(Book::getBook($bookId));
+      $points = $this->calculatePointsByPages(Book::getBook($bookId)->B_PAGES);
       $saved = $this->savePoints($userId, $points);
     }
   }
 
-    private function calculatePoints( $book ){
-        if( $book->B_PAGES > 99 )
-            return  1 + intdiv( $book->B_PAGES, 100 );
-        
-        return 1;
-    }
+  private function calculatePointsByPages($pages){
+    return $pages > 99 ? 1 + intdiv($pages, 100) : 1; 
+  }
 
     private function savePoints($userId, $points){
         $pointsQuery = 'UPDATE USERS 

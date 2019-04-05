@@ -69,9 +69,17 @@ class Database
     }   
   }
 
-  public static function insert(array $params, $query) {
+  private function prepareExecute(array $params, $query) {
     $statement = self::prepare($query);
     return $statement->execute($params);
+  }
+
+  public static function insert(array $params, $query) {
+    return self::prepareExecute($params, $query);
+  }
+
+  public static function update(array $params, $query) {
+    return self::prepareExecute($params, $query);
   }
 }
 
