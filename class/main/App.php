@@ -32,32 +32,32 @@ class App {
   }
 
   public function createView() {
-    $str_view = '_view/pages/login.php';
+    $strviews = 'views/pages/login.php';
     $page_title = 'Login';
     
     if( $this->isLogged() ){
-      $str_view = '_view/pages/home.php';        
+      $strviews = 'views/pages/home.php';        
       $page_title = 'Home';
       
       if( isset( $_GET['book']) && $_GET['book'] != '' ){
-        $str_view = '_view/pages/book.php';        
+        $strviews = 'views/pages/book.php';        
         $page_title = Book::getBook($_GET['book'])->title;
       }
 
       if( isset( $_GET['ranking']) && $_GET['ranking'] != '' ){
-        $str_view = '_view/pages/ranking.php';        
+        $strviews = 'views/pages/ranking.php';        
         $page_title = 'Ranking';
       }
 
       if( isset( $_GET['profile']) && $_GET['profile'] != '' ){
-        $str_view = '_view/pages/profile.php';        
+        $strviews = 'views/pages/profile.php';        
         $page_title = 'Profile';
       }
     }
     
-    include_once('_view/header.php');
-    include_once( $str_view );
-    include_once('_view/footer.php');
+    include_once('views/header.php');
+    include_once( $strviews );
+    include_once('views/footer.php');
   }
 
   public function markBook($bookId, $userId) {
