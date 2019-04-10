@@ -1,7 +1,9 @@
 <?php
 
 use DAO\Book;
+use Main\Router;
 
+include 'views/header.php';
 ?>
 
 <div class="home content">
@@ -22,3 +24,4 @@ use DAO\Book;
   </div>
 
 </div>
+<?php include 'views/footer.php'; ?>

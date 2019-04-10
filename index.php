@@ -3,14 +3,10 @@
 session_start();
 
 require 'functions.php';
-
 use Main\App;
 
-// require_once('app.php');
+// echo $_GET['url'];
+// echo( $_SERVER["REQUEST_METHOD"] );
 
-$app = new App();
-
-$app->login();
-
-$app->createView();
+App::start();
 
