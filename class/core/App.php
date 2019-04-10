@@ -1,6 +1,8 @@
 <?php
 
-namespace Main;
+namespace Core;
+
+use Network\Router;
 
 // use Controllers\Home;
 
