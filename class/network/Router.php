@@ -24,8 +24,13 @@ class Router {
       $controller::$method($params);
   
     } else { 
-      header("Location: /"); 
-    }  
+      self::redirect('/404');
+    }
+
+  }
+  
+  private function redirect($path) {
+    header("Location: $path");
   }
 
   // public static function get($path, $args, $callback) {
