@@ -2,14 +2,15 @@
 
 namespace Controller;
 
-class Home implements IController {
+use Network\IhttpGet;
+
+class Home implements IhttpGet {
   
   public static function get($args){
-    if(!$args)
-      // header("Location: /login");
+    if(!isset($_SESSION['UID']))
+      header("Location: /login");
     
-      echo 'Home method GET';
-      require 'view/Home.php';
+    require 'view/Home.php';
   }  
 
 }

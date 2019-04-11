@@ -16,12 +16,15 @@ class Router {
 
   public static function on($request) {
     if(array_key_exists($request->params[0], self::$routes)){
+      //verify class exists
       $controller = self::$routes[$request->params[0]];
-      $method = $request->method;
-      $controller::$method($request->params);
+      if(class_exists($controller)){
+        $method = $request->method;
+        $controller::$method($request->params);
+      }
   
     } else { 
-      self::redirect('/404');
+      self::redirect('/404.php');
     }
   }
   

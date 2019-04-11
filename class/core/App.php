@@ -11,7 +11,7 @@ class App {
     '/' => 'Controller\Home',
     '/home' => 'Controller\Home',
     '/login' => 'Controller\Login',
-    '/book' => 'Controller\Book'
+    '/book' => 'Controller\Book',
   );
 
   public static function init() {
