@@ -10,12 +10,12 @@ class Router {
     self::$routes = $routes;
   }
 
-  public static function add($route, $callback){
+  public static function add($route, $callback) {
     self::$routes[$route] = $callback;
   }
 
   // public static function on($method, $request_path, $params = null ){
-  public static function on($request){
+  public static function on($request) {
     if(empty( trim($request->uri) )) $request->uri = '/';
 
     if(array_key_exists($request->uri, self::$routes)){

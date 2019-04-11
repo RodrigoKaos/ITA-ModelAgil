@@ -3,48 +3,19 @@
 namespace Core;
 
 use Network\Router;
+use Network\Request;
 
-// use Controllers\Home;
-
-class App {
-  
+class App {  
 
   private static $routes = array(
-    '/' => 'Home',
-    '/login' => 'Login'
+    '/' => 'Controller\Home',
+    '/login' => 'Controller\Login',
+    '/book' => 'Controller\Book'
   );
 
-  public static function start() {
+  public static function init() {
     Router::set(self::$routes);
-
-    Router::get($_GET['url'], '',function($arg){
-      // $get = $_GET['url'];
-      $controller = "\\Controllers\\" . self::$routes[$_GET['url']];
-      // echo $controller;
-      $controller::createView();
-    });
-
+    Router::on(new Request($_SERVER));
   }
  
 }
-
-
-
-
-
-// public static function start() {
-//   Router::set(self::$routes);
-  
-//   Router::get('/login', 'login',function($args){        
-//     Login::get($args);
-//   });
-
-//   Router::get('/', 'home',function($args){
-//     Home::get($args);
-//   });
-
-// }
-
-// private function isLogged(){
-//   return isset($_SESSION['UID']);
-// }

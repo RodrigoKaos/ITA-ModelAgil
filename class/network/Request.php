@@ -14,5 +14,4 @@ class Request
     $this->$params = explode('/', $req['REQUEST_URI']);
   }
   
-  
 }
