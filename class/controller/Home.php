@@ -9,7 +9,7 @@ class Home implements IController {
       // header("Location: /login");
     
       echo 'Home method GET';
-        
+      require 'view/Home.php';
   }  
 
 }

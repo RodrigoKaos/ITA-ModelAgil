@@ -9,6 +9,7 @@ class App {
 
   private static $routes = array(
     '/' => 'Controller\Home',
+    '/home' => 'Controller\Home',
     '/login' => 'Controller\Login',
     '/book' => 'Controller\Book'
   );
