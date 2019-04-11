@@ -15,9 +15,6 @@ class Router {
   }
 
   public static function on($request) {
-    // public static function on($method, $request_path, $params = null ){
-    // if(empty( trim($request->uri) )) $request->uri = '/';
-    // var_dump($request->params);
     if(array_key_exists($request->params[0], self::$routes)){
       $controller = self::$routes[$request->params[0]];
       $method = $request->method;
@@ -31,22 +28,5 @@ class Router {
   private function redirect($path) {
     header("Location: $path");
   }
-
-  // public static function get($path, $args, $callback) {
-  //   // var_dump(self::$routes);
-  //   if(
-  //     $_SERVER['REQUEST_METHOD'] == 'GET' 
-  //     && array_key_exists($path, self::$routes)
-  //   ){
-  //     $callback->__invoke($args);
-  //     // call_user_func_array
-  //   }
-  // }
-
-  // public static function post($path, $callback) {
-  //   var_dump($_SERVER['REQUEST_METHOD']);
-  //   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  //     var_dump($path);
-  //   }
-  // }
+  
 }

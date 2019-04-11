@@ -11,7 +11,7 @@ class Request
   public function __construct($req){
     $this->method = strtolower($req['REQUEST_METHOD']);
     $this->uri = $req['REQUEST_URI'];
-    $this->params = $this->parseUriToParams($req['REQUEST_URI']);
+    $this->params = $this->parseUriToParams($this->uri);
   }
 
   private function parseUriToParams($uri){
