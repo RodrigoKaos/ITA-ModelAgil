@@ -14,7 +14,7 @@ getHeader();
       <div class="book item">
         <img src="public/assets/img/default_book.jpg" alt="Default book image">
         <h3>
-          <a href="?book=<?php echo $book->id; ?>">
+          <a href="/book/<?php echo $book->id; ?>">
               <?php echo $book->title; ?>
           </a>
         </h3>
