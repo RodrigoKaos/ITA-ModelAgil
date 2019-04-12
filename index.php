@@ -2,7 +2,7 @@
 
 session_start();
 
-require 'functions.php';
+require 'app/functions.php';
 use Core\App;
 
 App::init();

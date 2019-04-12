@@ -1,4 +1,4 @@
-<?php require 'view/header.php'; ?> 
+<?php require 'app/view/header.php'; ?> 
 
 <div class="login content">
     <h1 class="title">Esse eu já li!</h1>
@@ -27,4 +27,4 @@
 
 </div>
 
-<?php require 'view/header.php'; ?> 
+<?php require 'app/view/footer.php'; ?> 

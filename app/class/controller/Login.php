@@ -10,7 +10,7 @@ class Login implements IhttpGet, IhttpPost {
   
   public static function get($args){
     
-    require 'view/login.php';       
+    require 'app/view/login.php';       
   }
 
   public static function post($args){

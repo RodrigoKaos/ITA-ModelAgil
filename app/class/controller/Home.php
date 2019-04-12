@@ -10,7 +10,7 @@ class Home implements IhttpGet {
     if(!isset($_SESSION['UID']))
       header("Location: /login");
     
-    require 'view/Home.php';
+    require 'app/view/Home.php';
   }  
 
 }
