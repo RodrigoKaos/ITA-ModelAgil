@@ -1,30 +1,30 @@
-<?php require 'app/view/header.php'; ?> 
+<?php getHeader();?>
 
 <div class="login content">
-    <h1 class="title">Esse eu já li!</h1>
-    
-    <form class="login" method="post">
-        <div class="form-field">
-            <label for="login">Login:</label>
-            <input type="text" name="login" id="login" pattern="^\w+$" required>
-        </div>
-        
-        <div class="form-field">
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-        </div>
+  <h1 class="title">Esse eu já li!</h1>
 
-        <div class="form-field">
-            <button type="submit">Login</button>
-        </div>
-    </form>
-
-    <?php if( isset($_SESSION['LOGERROR']) ) { ?>
-        <div class="alert error">
-            <?php echo $_SESSION['LOGERROR']; ?>
+  <form class="login" method="post">
+    <div class="form-field">
+      <label for="login">Login:</label>
+      <input type="text" name="login" id="login" pattern="^\w+$" required>
     </div>
-    <?php } ?>
+
+    <div class="form-field">
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+
+    <div class="form-field">
+      <button type="submit">Login</button>
+    </div>
+  </form>
+
+  <?php if (isset($_SESSION['LOGERROR'])) {?>
+    <div class="alert error">
+      <?php echo $_SESSION['LOGERROR']; ?>
+    </div>
+  <?php }?>
 
 </div>
 
-<?php require 'app/view/footer.php'; ?> 
+<?php getFooter();?>

@@ -2,7 +2,7 @@
 
 use DAO\Book;
 
-include 'app/view/header.php';
+getHeader();
 ?>
 
 <div class="home content">
@@ -24,4 +24,4 @@ include 'app/view/header.php';
 
 </div>
 
-<?php include 'app/view/footer.php'; ?>
+<?php getFooter() ?>
