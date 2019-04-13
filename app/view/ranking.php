@@ -1,8 +1,4 @@
-<?php
-
-use DAO\User;
-
-?>
+<?php getHeader(); ?>
 
 <div class="ranking content">
   <h1>Ranking</h1>
@@ -15,7 +11,7 @@ use DAO\User;
 
     <?php 
     $position = 1;
-    foreach( User::getRankingList() as $user ){ ?>
+    foreach( $rankList as $user ){ ?>
       <tr>
         <td><?php echo $position; $position++; ?></td>
         <td><?php echo $user->name; ?></td>
@@ -23,5 +19,6 @@ use DAO\User;
       </tr>
     <?php } ?>
   </table>
-
 </div>
+
+<?php getFooter(); ?>

@@ -13,6 +13,7 @@ class App {
     '/login' => 'Controller\Login',
     '/book' => 'Controller\Book',
     '/profile' => 'Controller\Profile',
+    '/ranking' => 'Controller\Ranking',
   );
 
   public static function init() {
