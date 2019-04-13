@@ -28,7 +28,7 @@ class Router {
     }
   }
   
-  private function redirect($path) {
+  public static function redirect($path) {
     header("Location: $path");
   }
   

@@ -25,7 +25,7 @@ class Book {
 
   public static function setStatus($bookId, $userId) {
     //TODO: Refactor to change status
-    return Database::insert([$userId, $bookId], Query::get(__FUNCTION__));
+    return Database::insert([$userId, $bookId], Query::get(__FUNCTION__), true);
   }
 
   public static function savePoints($userId, $points) {

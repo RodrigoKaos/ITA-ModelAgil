@@ -61,6 +61,7 @@ class App {
   }
 
   public function markBook($bookId, $userId) {
+    
     //TODO: Add rollback...
     $marked = Book::setStatus($bookId, $userId);
     if($marked){

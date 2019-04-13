@@ -4,7 +4,6 @@ getHeader();
 
 ?>
 
-
 <div class="book content">
   <div class="book info">
       
