@@ -11,26 +11,6 @@ class App {
 
   public function __construct() {}
 
-  public function login() {
-    if( !empty($_POST) ){
-      if( isset($_POST['login'])  && isset($_POST['password']) ) {
-        $user = Login::verify($_POST['login'], $_POST['password']);
-
-        if( !$user ) {
-          $err_msg = 'Invalid username or password...';
-          $_SESSION['LOGERROR'] = $err_msg;
-        } else {
-          $_SESSION['UID'] = $user->id;
-          $_SESSION['UNAME'] = $user->name;
-        }        
-      }
-    }
-  }
-
-  private function isLogged() {
-    return isset($_SESSION['UID']);
-  }
-
   public function createView() {
     $strviews = 'views/pages/login.php';
     $page_title = 'Login';

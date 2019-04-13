@@ -3,6 +3,7 @@
 namespace Controller;
 
 use DAO\Book as BookDAO;
+use DAO\Login;
 use Main\App;
 use Network\Router;
 use Network\IhttpGet;
@@ -11,6 +12,9 @@ use Network\IhttpPost;
 class Book implements IhttpGet, IhttpPost {
   
   public static function get($args){ //TODO: update variables
+    if(!Login::isLogged())
+      header("Location: /login");
+
     $book = null;
     $bookId = intval($args[1]);//TODO: refactor
     
