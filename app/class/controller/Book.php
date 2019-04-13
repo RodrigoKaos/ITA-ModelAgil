@@ -4,7 +4,6 @@ namespace Controller;
 
 use DAO\Book as BookDAO;
 use DAO\Login;
-use Main\App;
 use Network\Router;
 use Network\IhttpGet;
 use Network\IhttpPost;
@@ -28,6 +27,7 @@ class Book implements IhttpGet, IhttpPost {
       $str_status = '';
       if( $book_status )
         $str_status = "disabled";
+
     }else {//TODO:Fix
       $book = new \stdClass();
       $book->title = "Book not found!";
@@ -39,11 +39,23 @@ class Book implements IhttpGet, IhttpPost {
   public static function post($args){    
     if(! empty( $_POST ) ){
       if( isset( $_POST['book']) && isset($_POST['status']) ){
-        $app = new App();
-        $app->markBook($_POST['book'], $_SESSION['UID']);
+        self::markBook($_POST['book'], $_SESSION['UID']);
         Router::redirect("/book" . DIRECTORY_SEPARATOR . $_POST['book']);
       }
     }        
+  }
+
+  private function markBook($bookId, $userId) {    
+    //TODO: Add rollback...
+    $marked = BookDAO::setStatus($bookId, $userId);
+    if($marked){
+      $points = self::calculatePointsByPages(BookDAO::getBook($bookId)->total_pages);
+      $saved = BookDAO::savePoints($userId, $points);
+    }
+  }
+
+  private function calculatePointsByPages($pages){
+    return $pages > 99 ? 1 + intdiv($pages, 100) : 1; 
   }
 
 }
