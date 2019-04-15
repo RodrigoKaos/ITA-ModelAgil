@@ -1,25 +1,6 @@
 <?php
 
-use DAO\Book;
-use Main\App;
-
-$app = new App();
-
-if(! empty( $_POST ) ){
-  if( isset( $_POST['book']) && isset($_POST['status']) ){
-    $app->markBook($_POST['book'], $_SESSION['UID']);
-  }
-}
-
-$book = Book::getBook($_GET['book']);
-$book_status = Book::checkStatus( $_GET['book'], $_SESSION['UID'] );
-
-if( empty($book_status) )
-  $book_status = 0;
-
-$str_status = '';
-if( $book_status )
-  $str_status = "disabled";
+getHeader();
 
 ?>
 
@@ -38,3 +19,5 @@ if( $book_status )
   </div>
 
 </div>
+
+<?php getFooter(); ?>

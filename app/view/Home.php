@@ -2,6 +2,7 @@
 
 use DAO\Book;
 
+getHeader();
 ?>
 
 <div class="home content">
@@ -11,9 +12,9 @@ use DAO\Book;
   <div class="book list center">
     <?php foreach( Book::getBookList() as $book ){ ?>
       <div class="book item">
-        <img src="assets/img/default_book.jpg" alt="Default book image">
+        <img src="public/assets/img/default_book.jpg" alt="Default book image">
         <h3>
-          <a href="?book=<?php echo $book->id; ?>">
+          <a href="/book/<?php echo $book->id; ?>">
               <?php echo $book->title; ?>
           </a>
         </h3>
@@ -22,3 +23,5 @@ use DAO\Book;
   </div>
 
 </div>
+
+<?php getFooter() ?>

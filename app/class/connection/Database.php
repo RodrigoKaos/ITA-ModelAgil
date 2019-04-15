@@ -59,14 +59,15 @@ class Database
   }
 
   private function prepare($query) {
-    return self::$databaseConnection->prepare($query);
+    $connection = self::getConnection();
+    return $connection->prepare($query);
   }
   
   private function binding(array $params, $statement) {
     //TODO: Identify the type of the parameter
     foreach ($params as $key => $value) {
       $statement->bindParam($key+1, $params[$key], PDO::PARAM_STR);
-    }   
+    }
   }
 
   private function prepareExecute(array $params, $query) {
@@ -74,7 +75,12 @@ class Database
     return $statement->execute($params);
   }
 
-  public static function insert(array $params, $query) {
+  public static function insert(array $params, $query, $binding = false) {
+    if($binding){
+      $statement = self::prepare($query);
+      self::binding($params, $statement);
+      return $statement->execute();
+    }
     return self::prepareExecute($params, $query);
   }
 

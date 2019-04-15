@@ -2,15 +2,7 @@
 
 session_start();
 
-require 'functions.php';
+require 'app/functions.php';
+use Core\App;
 
-use Main\App;
-
-// require_once('app.php');
-
-$app = new App();
-
-$app->login();
-
-$app->createView();
-
+App::init();
