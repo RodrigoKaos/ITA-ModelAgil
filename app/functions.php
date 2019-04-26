@@ -10,12 +10,4 @@ spl_autoload_register(function($fullClassName){
   require $fullClassName . '.php';
 });
 
-function getHeader(){
-  include 'app/view/header.php';
-}
-
-function getFooter(){
-  include 'app/view/footer.php';
-}
-
 ?>
