@@ -2,7 +2,6 @@
 
 use DAO\Book;
 
-getHeader();
 ?>
 
 <div class="home content">
