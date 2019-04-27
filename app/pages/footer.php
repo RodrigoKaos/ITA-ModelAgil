@@ -1,6 +1,6 @@
 <?php if( isset($_SESSION['UID']) ){ ?>
 <?php } ?>
 
-<footer></footer>
+<footer>Footer</footer>
 </body>
 </html>

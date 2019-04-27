@@ -1,5 +1,3 @@
-<?php getHeader();?>
-
 <div class="login content">
   <h1 class="title">Esse eu já li!</h1>
 
@@ -26,5 +24,3 @@
   <?php }?>
 
 </div>
-
-<?php getFooter();?>

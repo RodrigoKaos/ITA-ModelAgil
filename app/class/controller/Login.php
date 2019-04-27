@@ -2,15 +2,16 @@
 
 namespace Controller;
 
-use DAO\Login as LoginDAO;
+use View\Renderer;
 use Network\IhttpGet;
 use Network\IhttpPost;
+use DAO\Login as LoginDAO;
 
 class Login implements IhttpGet, IhttpPost {
   
   public static function get($args){
     
-    require 'app/view/login.php';       
+    $view = new Renderer('/login.php');
   }
 
   public static function post($args){

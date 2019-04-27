@@ -6,9 +6,10 @@ class Renderer {
     
   private $templateFile;
 
-  public function __construct($template, $data = null) {
-    if(!file_exists($template)){
-      $template = 'app/pages/404.php';
+  public function __construct($template, $data = array()) {
+
+    if(!file_exists(TEMPLATE_PATH . $template)){
+      $template = '/404.php';
     }
     
     $this->mountTemplate($template);
@@ -17,27 +18,26 @@ class Renderer {
   }
 
   private function load($templatePath) {
-    return file_get_contents($templatePath); 
+    return file_get_contents(TEMPLATE_PATH . $templatePath); 
   }
 
   private function parseData($args) {
     if(args != null){
       foreach ($args as $key => $value) {
-        echo $key . " - " . $value . "<br>";
         $this->templateFile = str_replace("{".$key."}", $value, $this->templateFile); 
       }
     }  
   }
 
   private function render() {
-    eval( "?>" . $this->templateFile);
+    eval(  "?>" . $this->templateFile );
   }
     
   private function mountTemplate($templatePath){
     
-    $headerTemplate = $this->load('app/pages/header.test.php');
+    $headerTemplate = $this->load('/header.php');
     $contentTemplate = $this->load($templatePath);
-    $footerTemplate = $this->load('app/pages/footer.php');
+    $footerTemplate = $this->load('/footer.php');
     
     $this->templateFile = $headerTemplate . $contentTemplate . $footerTemplate;
   }
