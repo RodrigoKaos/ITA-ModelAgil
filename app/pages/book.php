@@ -2,8 +2,8 @@
   <div class="book info">
       
     <h1>{book.title}</h1>
-    {book.genre}
-    {book.total_pages}
+    <div>{book.genre}</div>
+    <div>{book.total_pages}</div>
     
     <form method="post">            
       <input type="hidden" name="book" value="{book.id}">
