@@ -4,42 +4,43 @@ namespace View;
 
 class Renderer {
     
-  private $templateFile;
+  // private $templateFile;
 
-  public function __construct($template, $data = array()) {
+  // public function __construct($template, $data = array()) {
 
-    if(!file_exists(TEMPLATE_PATH . $template)){
-      $template = '/404.php';
-    }
+  //   if(!file_exists(TEMPLATE_PATH . $template)){
+  //     $template = '/404.php';
+  //   }
     
-    $this->mountTemplate($template);
-    $this->ParseData($data);
-    $this->render();
-  }
+  //   $this->mountTemplate($template);
+  //   $this->ParseData($data);
+  //   $this->render();
+  // }
 
-  private function load($templatePath) {
+  public static function load($templatePath) {
     return file_get_contents(TEMPLATE_PATH . $templatePath); 
   }
 
-  private function parseData($args) {
-    if(args != null){
-      foreach ($args as $key => $value) {
-        $this->templateFile = str_replace("{".$key."}", $value, $this->templateFile); 
+  public static function parseData($template, $data) {
+    if($data != null){
+      foreach ($data as $key => $value) {
+        $template = str_replace("{".$key."}", $value, $template); 
       }
+      return $template;
     }  
   }
 
-  private function render() {
-    eval(  "?>" . $this->templateFile );
+  public static function render($template) {
+    eval(  "?>" . $template );
   }
     
-  private function mountTemplate($templatePath){
+  public static function mountTemplate($templatePath){
     
-    $headerTemplate = $this->load('/header.php');
-    $contentTemplate = $this->load($templatePath);
-    $footerTemplate = $this->load('/footer.php');
+    $headerTemplate = self::load('/header.php');
+    $contentTemplate = self::load($templatePath);
+    $footerTemplate = self::load('/footer.php');
     
-    $this->templateFile = $headerTemplate . $contentTemplate . $footerTemplate;
+    return $headerTemplate . $contentTemplate . $footerTemplate;
   }
 
 }
