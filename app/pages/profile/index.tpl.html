@@ -6,9 +6,16 @@
 
   <div class="book read">
     <span>
-      <strong>{book_count} books read</strong>
+      <strong>{book.count} books read</strong>
     </span>
-    {bookList}
+    <table class="center">
+      <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th></th>
+      </tr>
+      {bookList}
+    </table>
   </div>
   
 </div>

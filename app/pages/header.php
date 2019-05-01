@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title><?php echo $page_title; ?> | Esse eu já li!</title>
+  <title>{page.title} | Esse eu já li!</title>
   
   <link rel="stylesheet" href="/public/css/style.css">
 </head>

@@ -3,6 +3,7 @@
 namespace Controller;
 
 use View\Renderer;
+use Network\Router;
 use Network\IhttpGet;
 use Network\IhttpPost;
 use DAO\Login as LoginDAO;
@@ -10,8 +11,13 @@ use DAO\Login as LoginDAO;
 class Login implements IhttpGet, IhttpPost {
   
   public static function get($args){
+    if(LoginDAO::isLogged())
+      Router::redirect('/home');
     
-    $view = new Renderer('/login.php');
+    $arr = array(
+      'page.title' => 'Login'
+    );
+    Renderer::renderTemplate('/login.php', $arr); 
   }
 
   public static function post($args){
@@ -26,7 +32,7 @@ class Login implements IhttpGet, IhttpPost {
           $_SESSION['UID'] = $user->id;
           $_SESSION['UNAME'] = $user->name;
         }
-        header("Location: /");      
+        Router::redirect("/home");      
       }
     }
   }

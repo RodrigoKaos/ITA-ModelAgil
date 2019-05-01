@@ -5,6 +5,7 @@ namespace Controller;
 use DAO\Book;
 use DAO\User;
 use DAO\Login;
+use View\Renderer;
 use Network\Router;
 use Network\IhttpGet;
 
@@ -27,19 +28,27 @@ class Profile implements IhttpGet {
       if( $booksByGenre[0]->quantity > 4){
         foreach ($booksByGenre as $book) {
           if( $book->quantity > 4 ){
-            #load thophies template and parse variables
+            $arr = array('book.genre' => $book->genre);
+            $templateAux = Renderer::load('/profile/trophies.tpl.html');
+            $templateAux = Renderer::parseData($templateAux, $arr);
+            $trophiesTemplate .= $templateAux;
           }
         }
       }
 
       foreach( $bookList as $book ){
-         #load bookItem template and parse variables
+        $arr = array(
+          'book.title' => $book->title,
+          'book.genre' => $book->genre
+        );
+        $templateAux = Renderer::load('/profile/bookItem.tpl.html');
+        $templateAux = Renderer::parseData($templateAux, $arr);
+        $bookListTemplate .= $templateAux;
       }
-
-
     }
 
     $data = array(
+      'page.title' => $user->name,
       'user.name' => $user->name,
       'user.points' => $user->points,
       'book.count' => $bookListCount,
@@ -47,7 +56,7 @@ class Profile implements IhttpGet {
       'bookList' => $bookListTemplate
     );
 
-    require 'app/view/profile.php';
+    Renderer::renderTemplate('/profile/index.tpl.html', $data);
   }  
 
 }

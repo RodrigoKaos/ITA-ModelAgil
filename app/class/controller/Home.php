@@ -19,8 +19,11 @@ class Home implements IhttpGet {
     foreach (Book::getBookList() as $book) {
       $bookListStr .= self::book2Html($book);
     }
-    $arr = array('bookList' => $bookListStr);
-    $view = new Renderer('/home.php', $arr); 
+    $arr = array(
+      'page.title' => 'Home',
+      'bookList' => $bookListStr
+    );
+    Renderer::renderTemplate('/home.php', $arr); 
   }
 
   private function book2Html($book){//REFACTOR

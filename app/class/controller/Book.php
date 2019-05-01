@@ -35,6 +35,7 @@ class Book implements IhttpGet, IhttpPost {
     }
 
     $data = array(
+      'page.title' => $book->title,
       'book.id' => $book->id,
       'book.status'=> $book->status,
       'book.str_status' => $str_status,
@@ -42,7 +43,7 @@ class Book implements IhttpGet, IhttpPost {
       'book.genre' => $book->genre,
       'book.total_pages' => $book->total_pages,
     );
-    $view = new Renderer('/book.php', $data);
+    Renderer::renderTemplate('/book.php', $data);
   } 
 
   public static function post($args){    
