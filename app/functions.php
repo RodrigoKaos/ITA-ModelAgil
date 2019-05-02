@@ -10,4 +10,5 @@ spl_autoload_register(function($fullClassName){
   require $fullClassName . '.php';
 });
 
+define('TEMPLATE_PATH', 'app/pages');
 ?>

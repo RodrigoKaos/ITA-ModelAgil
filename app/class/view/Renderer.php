@@ -3,43 +3,42 @@
 namespace View;
 
 class Renderer {
-    
-  private $templateFile;
 
-  public function __construct($template, $data = null) {
-    if(!file_exists($template)){
-      $template = 'app/pages/404.php';
-    }
-    
-    $this->mountTemplate($template);
-    $this->ParseData($data);
-    $this->render();
+  public static function load($templatePath) {
+    return file_get_contents(TEMPLATE_PATH . $templatePath); 
   }
 
-  private function load($templatePath) {
-    return file_get_contents($templatePath); 
-  }
-
-  private function parseData($args) {
-    if(args != null){
-      foreach ($args as $key => $value) {
-        echo $key . " - " . $value . "<br>";
-        $this->templateFile = str_replace("{".$key."}", $value, $this->templateFile); 
+  public static function parseData($template, $data = array()) {
+    if($data != null){
+      foreach ($data as $key => $value) {
+        $template = str_replace("{".$key."}", $value, $template); 
       }
     }  
+    return $template;
   }
 
-  private function render() {
-    eval( "?>" . $this->templateFile);
+  private function render($template) {
+    eval(  "?>" . $template );
   }
     
-  private function mountTemplate($templatePath){
+  private function mountTemplate($templatePath){    
+    $headerTemplate = self::load('/includes/header.php');
+    $contentTemplate = self::load($templatePath);
+    $footerTemplate = self::load('/includes/footer.php');
     
-    $headerTemplate = $this->load('app/pages/header.test.php');
-    $contentTemplate = $this->load($templatePath);
-    $footerTemplate = $this->load('app/pages/footer.php');
-    
-    $this->templateFile = $headerTemplate . $contentTemplate . $footerTemplate;
+    return $headerTemplate . $contentTemplate . $footerTemplate;
+  }
+
+  public static function renderTemplate($templatePath, $data = array()){
+    $view = self::mountTemplate($templatePath);
+    $view = self::parseData($view, $data);
+    self::render($view);
+  }
+
+  public static function loadAndParse($templatePath, $data){
+    $templateAux = Renderer::load($templatePath);
+      $templateAux = Renderer::parseData($templateAux, $data);
+      return $templateAux;
   }
 
 }

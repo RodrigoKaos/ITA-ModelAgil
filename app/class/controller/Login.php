@@ -2,15 +2,31 @@
 
 namespace Controller;
 
-use DAO\Login as LoginDAO;
+use View\Renderer;
+use Network\Router;
 use Network\IhttpGet;
 use Network\IhttpPost;
+use DAO\Login as LoginDAO;
 
 class Login implements IhttpGet, IhttpPost {
   
   public static function get($args){
+    if(LoginDAO::isLogged())
+      Router::redirect('/home');
     
-    require 'app/view/login.php';       
+    if(isset($_SESSION['LOGERROR'])){
+      $arr = array(
+        'error' => $_SESSION['LOGERROR']
+      );
+      $errTemplate = Renderer::loadAndParse('/login/error.tpl.html', $arr);
+            
+    }
+
+    $arr = array(
+      'page.title' => 'Login',
+      'msg.error' => $errTemplate
+    );
+    Renderer::renderTemplate('/login/index.tpl.html', $arr); 
   }
 
   public static function post($args){
@@ -25,7 +41,7 @@ class Login implements IhttpGet, IhttpPost {
           $_SESSION['UID'] = $user->id;
           $_SESSION['UNAME'] = $user->name;
         }
-        header("Location: /");      
+        Router::redirect("/home");      
       }
     }
   }

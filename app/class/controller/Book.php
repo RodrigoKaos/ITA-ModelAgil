@@ -2,17 +2,18 @@
 
 namespace Controller;
 
-use DAO\Book as BookDAO;
 use DAO\Login;
+use View\Renderer;
 use Network\Router;
 use Network\IhttpGet;
 use Network\IhttpPost;
+use DAO\Book as BookDAO;
 
 class Book implements IhttpGet, IhttpPost {
   
   public static function get($args){ //TODO: update variables
     if(!Login::isLogged())
-      header("Location: /login");
+      Router::redirect("/login");
 
     $book = null;
     $bookId = intval($args[1]);//TODO: refactor
@@ -33,7 +34,16 @@ class Book implements IhttpGet, IhttpPost {
       $book->title = "Book not found!";
     }
 
-    require 'app/view/Book.php';        
+    $data = array(
+      'page.title' => $book->title,
+      'book.id' => $book->id,
+      'book.status'=> $book->status,
+      'book.str_status' => $str_status,
+      'book.title' => $book->title,
+      'book.genre' => $book->genre,
+      'book.total_pages' => $book->total_pages,
+    );
+    Renderer::renderTemplate('/book/index.tpl.html', $data);
   } 
 
   public static function post($args){    
