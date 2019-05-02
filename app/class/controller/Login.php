@@ -14,10 +14,19 @@ class Login implements IhttpGet, IhttpPost {
     if(LoginDAO::isLogged())
       Router::redirect('/home');
     
+    if(isset($_SESSION['LOGERROR'])){
+      $arr = array(
+        'error' => $_SESSION['LOGERROR']
+      );
+      $errTemplate = Renderer::loadAndParse('/login/error.tpl.html', $arr);
+            
+    }
+
     $arr = array(
-      'page.title' => 'Login'
+      'page.title' => 'Login',
+      'msg.error' => $errTemplate
     );
-    Renderer::renderTemplate('/login.php', $arr); 
+    Renderer::renderTemplate('/login/index.tpl.html', $arr); 
   }
 
   public static function post($args){

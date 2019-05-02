@@ -22,9 +22,9 @@ class Renderer {
   }
     
   private function mountTemplate($templatePath){    
-    $headerTemplate = self::load('/header.php');
+    $headerTemplate = self::load('/includes/header.php');
     $contentTemplate = self::load($templatePath);
-    $footerTemplate = self::load('/footer.php');
+    $footerTemplate = self::load('/includes/footer.php');
     
     return $headerTemplate . $contentTemplate . $footerTemplate;
   }
@@ -33,6 +33,12 @@ class Renderer {
     $view = self::mountTemplate($templatePath);
     $view = self::parseData($view, $data);
     self::render($view);
+  }
+
+  public static function loadAndParse($templatePath, $data){
+    $templateAux = Renderer::load($templatePath);
+      $templateAux = Renderer::parseData($templateAux, $data);
+      return $templateAux;
   }
 
 }

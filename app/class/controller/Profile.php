@@ -20,18 +20,14 @@ class Profile implements IhttpGet {
     $bookList = Book::getBookListFromUser($userId);
     
     $bookListCount = count($bookList);
-    $trophiesTemplate = '';
-    $bookListTemplate = '';
 
-    if(count($bookList) > 0){
+    if($bookListCount > 0){
       $booksByGenre = User::getTrophies($userId);
       if( $booksByGenre[0]->quantity > 4){
         foreach ($booksByGenre as $book) {
           if( $book->quantity > 4 ){
             $arr = array('book.genre' => $book->genre);
-            $templateAux = Renderer::load('/profile/trophies.tpl.html');
-            $templateAux = Renderer::parseData($templateAux, $arr);
-            $trophiesTemplate .= $templateAux;
+            $trophiesTemplate .= Renderer::loadAndParse('/profile/trophies.tpl.html', $arr);
           }
         }
       }
@@ -41,10 +37,12 @@ class Profile implements IhttpGet {
           'book.title' => $book->title,
           'book.genre' => $book->genre
         );
-        $templateAux = Renderer::load('/profile/bookItem.tpl.html');
-        $templateAux = Renderer::parseData($templateAux, $arr);
-        $bookListTemplate .= $templateAux;
+        $bookItemsTemplate .= Renderer::loadAndParse('/profile/bookItem.tpl.html', $arr);
       }
+
+      $bookListTemplate = Renderer::loadAndParse(
+                                '/profile/bookList.tpl.html',
+                                array('bookItems' => $bookItemsTemplate));
     }
 
     $data = array(

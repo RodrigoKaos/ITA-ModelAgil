@@ -15,26 +15,20 @@ class Home implements IhttpGet {
       Router::redirect("/login");// header("Location: /login");
     }
     
-    $bookListStr = "";
+    // $bookListTemplate = "";
     foreach (Book::getBookList() as $book) {
-      $bookListStr .= self::book2Html($book);
+      $arr = array(
+        'book.id' => $book->id,
+        'book.title' => $book->title
+      );
+      $bookListTemplate .= Renderer::loadAndParse('/home/bookItem.tpl.html', $arr);
     }
-    $arr = array(
-      'page.title' => 'Home',
-      'bookList' => $bookListStr
-    );
-    Renderer::renderTemplate('/home.php', $arr); 
-  }
 
-  private function book2Html($book){//REFACTOR
-    $imgStr = "<img src='public/assets/img/default_book.jpg' alt='Default book image'>";
-    
-    $titleStr = " <h3><a href='/book/%s'>%s</a></h3>";
-    $titleStr = sprintf($titleStr, $book->id, $book->title);
-    
-    $divStr = "<div class='book item'> %s %s </div>";
-    $bookHtml = sprintf($divStr, $imgStr, $titleStr);
-    return $bookHtml;
+    $data = array(
+      'page.title' => 'Home',
+      'bookList' => $bookListTemplate
+    );
+    Renderer::renderTemplate('/home/index.tpl.html', $data); 
   }
 
 }

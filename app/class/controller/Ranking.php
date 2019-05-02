@@ -15,7 +15,7 @@ class Ranking implements IhttpGet {
       Router::redirect("/login");
       
     $rankList = User::getRankingList();
-    $rankingTemplate = '';
+    // $rankingTemplate = '';
       
     $position = 1;
     foreach( $rankList as $user ){
@@ -24,9 +24,7 @@ class Ranking implements IhttpGet {
         'user.name' => $user->name,
         'user.points' => $user->points
       );
-      $templateAux = Renderer::load('/ranking/rankingItem.tpl.html');
-      $templateAux = Renderer::parseData($templateAux, $arr);
-      $rankingTemplate .= $templateAux;
+      $rankingTemplate .= Renderer::loadAndParse('/ranking/rankingItem.tpl.html', $arr);
       $position++;
     }
 

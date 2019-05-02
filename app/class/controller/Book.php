@@ -43,7 +43,7 @@ class Book implements IhttpGet, IhttpPost {
       'book.genre' => $book->genre,
       'book.total_pages' => $book->total_pages,
     );
-    Renderer::renderTemplate('/book.php', $data);
+    Renderer::renderTemplate('/book/index.tpl.html', $data);
   } 
 
   public static function post($args){    
