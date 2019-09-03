@@ -17,7 +17,7 @@ class Router {
   public static function on($request) {
     if(array_key_exists($request->params[0], self::$routes)){
       //verify class exists
-      $controller = self::$routes[$request->params[0]];
+      $controller = 'Controller\\' . self::$routes[$request->params[0]];
       if(class_exists($controller)){
         $method = $request->method;
         $controller::$method($request->params);

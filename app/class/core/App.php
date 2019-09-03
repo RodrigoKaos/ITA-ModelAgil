@@ -8,13 +8,13 @@ use Network\Request;
 class App {  
 
   private static $routes = array(
-    '/' => 'Controller\Home',
-    '/home' => 'Controller\Home',
-    '/login' => 'Controller\Login',
-    '/book' => 'Controller\Book',
-    '/profile' => 'Controller\Profile',
-    '/ranking' => 'Controller\Ranking',
-    '/logout' => 'Controller\Logout',
+    '/'         => 'Home',
+    '/home'     => 'Home',
+    '/login'    => 'Login',
+    '/book'     => 'Book',
+    '/profile'  => 'Profile',
+    '/ranking'  => 'Ranking',
+    '/logout'   => 'Logout',
   );
 
   public static function init() {
