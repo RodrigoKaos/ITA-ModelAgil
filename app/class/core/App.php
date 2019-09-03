@@ -14,6 +14,7 @@ class App {
     '/book' => 'Controller\Book',
     '/profile' => 'Controller\Profile',
     '/ranking' => 'Controller\Ranking',
+    '/logout' => 'Controller\Logout',
   );
 
   public static function init() {

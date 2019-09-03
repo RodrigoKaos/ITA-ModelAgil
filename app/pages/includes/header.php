@@ -23,7 +23,7 @@
     <nav class="menu">
       <a href="/ranking">Ranking</a>
       <a href="/profile/<?php echo $_SESSION['UID']; ?>">Profile</a>
-      <a href="/logout.php" class="logout">Logout</a>
+      <a href="/logout" class="logout">Logout</a>
     </nav>  
   <?php } ?>
 </header>
