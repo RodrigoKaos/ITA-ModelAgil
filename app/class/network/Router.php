@@ -4,31 +4,31 @@ namespace Network;
 
 class Router {
 
-  private static $routes;
+  private $routes;
 
-  public static function set($routes) {
-    self::$routes = $routes;
+  public function set($routes) {
+    $this->routes = $routes;
   }
 
-  public static function add($route, $callback) {
-    self::$routes[$route] = $callback;
+  public function add($route, $callback) {
+    $this->routes[$route] = $callback;
   }
 
-  public static function on($request) {
-    if(array_key_exists($request->params[0], self::$routes)){
-      //verify class exists
-      $controller = 'Controller\\' . self::$routes[$request->params[0]];
-      if(class_exists($controller)){
+  public function on($request) {
+    if(array_key_exists($request->params[0], $this->routes)){
+
+      $controller = 'Controller\\' . $this->routes[$request->params[0]];
+      if(class_exists($controller)) {
         $method = $request->method;
         $controller::$method($request->params);
       }
   
     } else { 
-      self::redirect('/404.php');
+      $this->redirect('/404.php');
     }
   }
   
-  public static function redirect($path) {
+  public function redirect($path) {
     header("Location: $path");
   }
   

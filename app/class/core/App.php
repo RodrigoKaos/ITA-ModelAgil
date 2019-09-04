@@ -7,7 +7,7 @@ use Network\Request;
 
 class App {  
 
-  private static $routes = array(
+  private $routes = array(
     '/'         => 'Home',
     '/home'     => 'Home',
     '/login'    => 'Login',
@@ -17,9 +17,10 @@ class App {
     '/logout'   => 'Logout',
   );
 
-  public static function init() {
-    Router::set(self::$routes);
-    Router::on(new Request($_SERVER));
+  public function init() {
+    $router = new Router();
+    $router->set($this->routes);
+    $router->on(new Request($_SERVER));
   }
  
 }

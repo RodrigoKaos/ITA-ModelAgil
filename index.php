@@ -5,4 +5,5 @@ session_start();
 require 'app/functions.php';
 use Core\App;
 
-App::init();
+$app = new App();
+$app->init();
