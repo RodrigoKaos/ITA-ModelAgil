@@ -7,28 +7,28 @@ use Connection\Database;
 
 class Book {
   
-  public static function getBook($id) {
+  public function getBook($id) {
     return Database::select([$id], Query::get(__FUNCTION__), true);
   }
 
-  public static function getBooklist() {
+  public function getBooklist() {
     return Database::queryAll(Query::get(__FUNCTION__));
   }
 
-  public static function getBooklistFromUser($id) {
+  public function getBooklistFromUser($id) {
     return Database::select([$id], Query::get(__FUNCTION__));
   }
 
-  public static function checkStatus($bookId, $userId) {
+  public function checkStatus($bookId, $userId) {
     return Database::select([$userId, $bookId], Query::get(__FUNCTION__), true)->status;
   }
 
-  public static function setStatus($bookId, $userId) {
+  public function setStatus($bookId, $userId) {
     //TODO: Refactor to change status
     return Database::insert([$userId, $bookId], Query::get(__FUNCTION__), true);
   }
 
-  public static function savePoints($userId, $points) {
+  public function savePoints($userId, $points) {
     return Database::update([$points, $userId], Query::get(__FUNCTION__));
   }
 

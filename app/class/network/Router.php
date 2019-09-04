@@ -16,13 +16,13 @@ class Router {
 
   public function on($request) {
     if(array_key_exists($request->params[0], $this->routes)){
-
-      $controller = 'Controller\\' . $this->routes[$request->params[0]];
-      if(class_exists($controller)) {
-        $method = $request->method;
-        $controller::$method($request->params);
-      }
-  
+      
+      $controllerName = 'Controllers\\' . $this->routes[$request->params[0]];
+      if(class_exists($controllerName)) {
+        $methodName = $request->method;
+        $controller = new $controllerName();
+        $controller->$methodName($request->params);
+      }  
     } else { 
       $this->redirect('/404.php');
     }
